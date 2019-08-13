@@ -1,10 +1,9 @@
-from __future__ import unicode_literals, print_function
 from kivy.uix.widget import Widget
-from kivy.properties import (StringProperty, 
+from kivy.properties import (StringProperty,
     NumericProperty, ObjectProperty)
 from kivy.lang import Builder
 
-from utils import construct_target_file_name
+from flat_kivy.utils import construct_target_file_name
 
 Builder.load_file(construct_target_file_name('numpad.kv', __file__))
 
@@ -29,12 +28,12 @@ class NumPad(Widget):
     def button_callback(self, button_str):
         if button_str in [str(x) for x in range(10)]:
             if self.display_text == '0':
-                self.display_text = button_str 
+                self.display_text = button_str
             else:
                 self.display_text = self.display_text + button_str
             maximum_value = self.maximum_value
             if maximum_value != None:
-                if self.display_value > maximum_value: 
+                if self.display_value > maximum_value:
                     self.display_value = maximum_value
         elif button_str == 'del':
             self.display_text = self.display_text[:-1]
@@ -60,12 +59,12 @@ class DecimalNumPad(NumPad):
         if button_str in [str(x) for x in range(10)] or button_str == '.' and \
             '.' not in self.display_text:
             if self.display_text == '0':
-                self.display_text = button_str 
+                self.display_text = button_str
             else:
                 self.display_text = self.display_text + button_str
             maximum_value = self.maximum_value
             if maximum_value != None:
-                if self.display_value > maximum_value: 
+                if self.display_value > maximum_value:
                     self.display_value = maximum_value
         elif button_str == 'del':
             self.display_text = self.display_text[:-1]

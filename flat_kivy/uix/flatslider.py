@@ -3,7 +3,7 @@
 from kivy.uix.slider import Slider
 from kivy.properties import ListProperty
 
-from behaviors import GrabBehavior, SliderTouchRippleBehavior, ThemeBehavior
+from flat_kivy.uix.behaviors import GrabBehavior, SliderTouchRippleBehavior, ThemeBehavior
 
 
 class FlatSlider(GrabBehavior, SliderTouchRippleBehavior, ThemeBehavior,

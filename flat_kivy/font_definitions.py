@@ -1,5 +1,3 @@
-from __future__ import unicode_literals, print_function
-from kivy.uix.label import Label
 from kivy.event import EventDispatcher
 from flat_kivy.uix.flatlabel import FlatLabel
 from kivy.clock import Clock
@@ -69,14 +67,14 @@ class RampGroup(EventDispatcher):
         tracked_labels = self.tracked_labels
         font_ramp = self.font_ramp
         return_counts = {}
-        
+
         for each in font_ramp:
-            return_counts[each] = {'fit_count': 0, 'big_count': 0, 
+            return_counts[each] = {'fit_count': 0, 'big_count': 0,
                 'small_count': 0}
         for label in tracked_labels:
             for style in font_ramp:
                 return_count = return_counts[style]
-                
+
                 fit = self.get_fit(label, style)
                 if fit == 'fits':
                     return_count['fit_count'] += 1
@@ -113,7 +111,7 @@ class RampGroup(EventDispatcher):
     def reset_track_adjustments(self, dt):
         for tracked_label in self.tracked_labels:
             tracked_label._do_check_adjustments = True
-            
+
     def calculate_fit(self, label):
         actual_size = label._label._internal_size
         size = label.size
@@ -180,6 +178,3 @@ class StyleManager(object):
         return self.ramp_groups[group_name]
 
 style_manager = StyleManager()
-
-
-

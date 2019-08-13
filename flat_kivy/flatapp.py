@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, print_function
 from kivy.app import App
 from kivy.properties import ObjectProperty, NumericProperty, BooleanProperty
 from kivy.clock import Clock
@@ -16,10 +15,10 @@ from flat_kivy.uix.flatslider import FlatSlider
 from flat_kivy.uix.flatcard import FlatCard
 from flat_kivy.uix.flattextinput import FlatTextInput
 
-from numpad import DecimalNumPad, NumPad
-from utils import get_icon_char, get_rgba_color, construct_target_file_name
-from font_definitions import get_font_ramp_group, get_style, style_manager
-from dbinterface import DBInterface
+from flat_kivy.numpad import DecimalNumPad, NumPad
+from flat_kivy.utils import get_icon_char, get_rgba_color, construct_target_file_name
+from flat_kivy.font_definitions import get_font_ramp_group, get_style, style_manager
+from flat_kivy.dbinterface import DBInterface
 
 
 def style_default(style_name):
