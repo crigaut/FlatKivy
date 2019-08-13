@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, print_function
 from kivy.app import App
 from kivy.properties import ObjectProperty, NumericProperty, BooleanProperty
 from kivy.clock import Clock

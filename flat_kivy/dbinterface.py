@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, print_function
 from datetime import datetime, timedelta, date
 from kivy.storage.jsonstore import JsonStore
 from kivy.clock import Clock
@@ -8,7 +7,7 @@ class DBInterface(object):
 
     def __init__(self, data_dir, name, do_date=False, do_hour=False, **kwargs):
         super(DBInterface, self).__init__(**kwargs)
-        
+
         self.ensure_dir(data_dir)
         if do_date:
             if do_hour:
@@ -40,19 +39,19 @@ class DBInterface(object):
             expire_time = self.convert_time_from_json(each)
             if expire_time < current_time:
                 data = reset_timers[each]
-                self.set_entry(data['table'], data['row'], 
+                self.set_entry(data['table'], data['row'],
                     data['name'], None)
                 keys_to_del.append(each)
         for key in keys_to_del:
             reset_timers.delete(key)
-            
+
 
     def trigger_sync(self, dt):
         data = self.data
         print('syncing')
         data._is_changed = True
         data.store_sync()
-        
+
 
     def get_entry(self, table, row, name):
         data = self.data
@@ -129,7 +128,7 @@ class DBInterface(object):
         if do_history and 'history' not in name_data:
             name_data['history'] = {}
         if name_data['value'] != value:
-            
+
             name_data['value'] = value
             if do_timestamp:
                 time = self.get_time()
@@ -145,7 +144,7 @@ class DBInterface(object):
                 expires_at = self.convert_time_to_json(expire_time)
                 reset_timers = self.reset_timers
                 reset_timers[expires_at] = {
-                    'table': table, 
+                    'table': table,
                     'row': row,
                     'name': name,
                     }

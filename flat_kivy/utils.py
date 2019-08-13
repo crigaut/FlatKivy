@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, print_function
 from os import path
 from kivy.utils import platform, get_color_from_hex
 from color_definitions import colors
@@ -10,7 +9,7 @@ def get_metric_conversion(metric_tuple):
 
 
 def construct_target_file_name(target_file_name, pyfile):
-    '''Returns the correct file path relative to the __file__ 
+    '''Returns the correct file path relative to the __file__
     passed as pyfile'''
     if pyfile is None:
         pyfile = __file__
@@ -47,5 +46,3 @@ def get_rgba_color(color_tuple, control_alpha=None):
     else:
         color[3] = control_alpha
         return color
-    
-
