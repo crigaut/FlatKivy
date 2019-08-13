@@ -1,7 +1,7 @@
 from os import path
 from kivy.utils import platform, get_color_from_hex
-from color_definitions import colors
-from fa_icon_definitions import fa_icons
+from flat_kivy.color_definitions import colors
+from flat_kivy.fa_icon_definitions import fa_icons
 import kivy.metrics
 
 def get_metric_conversion(metric_tuple):

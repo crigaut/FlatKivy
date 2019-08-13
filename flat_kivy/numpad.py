@@ -3,7 +3,7 @@ from kivy.properties import (StringProperty,
     NumericProperty, ObjectProperty)
 from kivy.lang import Builder
 
-from utils import construct_target_file_name
+from flat_kivy.utils import construct_target_file_name
 
 Builder.load_file(construct_target_file_name('numpad.kv', __file__))
 
