@@ -16,7 +16,7 @@ def get_style(style):
         return None
 
 def get_font_ramp_group(font_ramp_tuple):
-    if font_ramp_tuple != []:
+    if font_ramp_tuple:
         group_name, ramp_name = font_ramp_tuple
         font_ramp = style_manager.get_font_ramp(ramp_name)
         if style_manager.check_ramp_group_exists(group_name):
