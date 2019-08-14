@@ -164,7 +164,7 @@ class ButtonBehavior(object):
                             'touches', touch_id,
                             'button_pressed', self.text, do_timestamp=True)
             self._do_press()
-            self.dispatch(b'on_press')
+            self.dispatch('on_press')
         return super(ButtonBehavior, self).on_touch_down(touch)
 
     def on_touch_move(self, touch):
@@ -187,7 +187,7 @@ class ButtonBehavior(object):
                             'touches', touch_id, 'button_released',
                             self.text, do_timestamp=True)
             self._do_release()
-            self.dispatch(b'on_release')
+            self.dispatch('on_release')
         return super(ButtonBehavior, self).on_touch_up(touch)
 
     def on_press(self):
