@@ -137,8 +137,8 @@ class ButtonBehavior(object):
 
 
     def __init__(self, **kwargs):
-        self.register_event_type(b'on_press')
-        self.register_event_type(b'on_release')
+        self.register_event_type('on_press')
+        self.register_event_type('on_release')
         super(ButtonBehavior, self).__init__(**kwargs)
 
     def _do_press(self):
@@ -155,13 +155,13 @@ class ButtonBehavior(object):
                     if isinstance(self, CheckBox):
                         touch_id = touch.ud['log_id']
                         log_manager.log_interface.set_entry(
-                            'touches', touch_id, 
-                            'checkbox_pressed_down', self.state, 
+                            'touches', touch_id,
+                            'checkbox_pressed_down', self.state,
                             do_timestamp=True)
                     else:
                         touch_id = touch.ud['log_id']
                         log_manager.log_interface.set_entry(
-                            'touches', touch_id, 
+                            'touches', touch_id,
                             'button_pressed', self.text, do_timestamp=True)
             self._do_press()
             self.dispatch(b'on_press')
@@ -171,20 +171,20 @@ class ButtonBehavior(object):
         return super(ButtonBehavior, self).on_touch_move(touch)
 
     def on_touch_up(self, touch):
-        if self in touch.ud:  
+        if self in touch.ud:
             if isinstance(self, LogBehavior):
                 log_manager = self.log_manager
                 if log_manager.do_logging:
                     if isinstance(self, CheckBox):
                         touch_id = touch.ud['log_id']
                         log_manager.log_interface.set_entry(
-                            'touches', touch_id, 
-                            'checkbox_released', self.state, 
+                            'touches', touch_id,
+                            'checkbox_released', self.state,
                             do_timestamp=True)
                     else:
                         touch_id = touch.ud['log_id']
                         log_manager.log_interface.set_entry(
-                            'touches', touch_id, 'button_released', 
+                            'touches', touch_id, 'button_released',
                             self.text, do_timestamp=True)
             self._do_release()
             self.dispatch(b'on_release')
