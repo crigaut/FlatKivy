@@ -1,3 +1,4 @@
+from kivy.uix.label import Label
 from kivy.event import EventDispatcher
 from flat_kivy.uix.flatlabel import FlatLabel
 from kivy.clock import Clock
