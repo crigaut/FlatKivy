@@ -68,3 +68,17 @@ class TestGetIconChar:
     def test_icon():
         """ Test of the string for a given icon """
         assert module.get_icon_char('fa-glass') == "\uf000"
+
+
+class TestGetRGBAColors:
+    """ Test of the color conversion from hex to RGBA """
+
+    @staticmethod
+    def test_pure_color():
+        """ Test of the conversion of a pure color """
+        assert module.get_rgba_color(("Grey", "0000")) == [1, 1, 1, 1]
+
+    @staticmethod
+    def test_color_alpha():
+        """ Test of the conversion of a color with alpha correction """
+        assert module.get_rgba_color(("Grey", "0000"), 0.5) == [1, 1, 1, 0.5]
