@@ -37,3 +37,20 @@ class TestConstructTargetFileName:
         """ Test of the file name in case of none is provided """
         assert module.construct_target_file_name('out', None) == join(
             dirname(abspath('flat_kivy/utils.py')), 'out')
+
+
+class TestConstructDataRessource:
+    """ Test of the path to the data files """
+
+    @staticmethod
+    def test_data_path():
+        """ Test of the data folder """
+        assert module.construct_data_resource(' ') == abspath(
+            'flat_kivy/data/ ')
+
+    @staticmethod
+    def test_data_file(tmpdir):
+        """ Test of the contruction of a data file """
+        temp_file = tmpdir.join("datafile.dat")
+        assert module.construct_data_resource(temp_file) == join(
+            dirname(temp_file), temp_file)
