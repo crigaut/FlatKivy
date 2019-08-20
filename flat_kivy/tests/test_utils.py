@@ -4,8 +4,8 @@ from os.path import abspath, dirname, join
 
 import flat_kivy.utils as module
 
-class TestGetMetricConvertion:
-    """ Test of density-independant pixel convertion """
+class TestGetMetricConversion:
+    """ Test of density-independant pixel conversion """
 
     @staticmethod
     def test_units():
@@ -14,7 +14,7 @@ class TestGetMetricConvertion:
 
     @staticmethod
     def test_convertion():
-        """ Test of the convertion factors """
+        """ Test of the conversion factors """
         assert module.get_metric_conversion(("3", "pt")) == 4
         assert module.get_metric_conversion(("1", "inch")) == 96
         assert module.get_metric_conversion(("1", "cm")) == 37.7952766418457
@@ -54,3 +54,17 @@ class TestConstructDataRessource:
         temp_file = tmpdir.join("datafile.dat")
         assert module.construct_data_resource(temp_file) == join(
             dirname(temp_file), temp_file)
+
+
+class TestGetIconChar:
+    """ Test of the unicode string corresponding to an icon """
+
+    @staticmethod
+    def test_empty_icon():
+        """ Test of the returned value for an empty icon """
+        assert module.get_icon_char("") == ""
+
+    @staticmethod
+    def test_icon():
+        """ Test of the string for a given icon """
+        assert module.get_icon_char('fa-glass') == "\uf000"
