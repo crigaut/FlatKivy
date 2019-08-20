@@ -20,3 +20,20 @@ class TestGetMetricConvertion:
         assert module.get_metric_conversion(("1", "cm")) == 37.7952766418457
         assert module.get_metric_conversion(("1", "mm")) == 3.7795276641845703
         assert module.get_metric_conversion(("1", "sp")) == 1
+
+
+class TestConstructTargetFileName:
+    """ Test of the pyfile name"""
+
+    @staticmethod
+    def test_file_name_pyfile(tmpdir):
+        """ Test of the path to the python file """
+        temp_file = tmpdir.join("pyfile.py")
+        assert module.construct_target_file_name('out', temp_file) == join(
+            dirname(temp_file), 'out')
+
+    @staticmethod
+    def test_file_name_none():
+        """ Test of the file name in case of none is provided """
+        assert module.construct_target_file_name('out', None) == join(
+            dirname(abspath('flat_kivy/utils.py')), 'out')
