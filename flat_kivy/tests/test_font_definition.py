@@ -47,4 +47,8 @@ class TestStyleManager:
         assert self.STYLE_MANAGER.ramp_groups == {}
         assert self.STYLE_MANAGER.font_ramps == {}
 
-    # TODO: Class to complete
+    def test_add_style(self, tmpdir):
+        """ Test of style addition """
+        font_file = tmpdir.mkdir("fonts").join("test_add")
+        self.STYLE_MANAGER.add_style(font_file, "Test add", 6, 10, 1)
+        assert "Test add" in self.STYLE_MANAGER.styles
