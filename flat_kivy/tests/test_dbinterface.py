@@ -97,12 +97,29 @@ class TestDBInterface:
         ymd = date(2000, 12, 31)
         assert self.INTERFACE.convert_time_to_json_ymd(ymd) == '2000-12-31'
 
+    def test_convert_time_to_json_ymd_none(self):
+        """ Test of None time conversion """
+        assert self.INTERFACE.convert_time_to_json_ymd(None) is None
+
+    def test_convert_time_to_json_ymdh(self):
+        """ Test of the date and hour conversion """
+        ymdh = datetime(2000, 12, 31, hour=7)
+        assert self.INTERFACE.convert_time_to_json_ymdh(ymdh) == '2000-12-31T07'
+
+    def test_convert_time_to_json_ymdh_none(self):
+        """ Test of the date and hour conversion """
+        assert self.INTERFACE.convert_time_to_json_ymdh(None) is None
+
     def test_convert_time_to_json(self):
         """ Test of the time conversion """
         time = datetime(2000, 12, 31, hour=7, minute=35, second=18)
         assert self.INTERFACE.convert_time_to_json(time) == (
             '2000-12-31T07:35:18'
         )
+
+    def test_convert_time_to_json_none(self):
+        """ Test of None time conversion """
+        assert self.INTERFACE.convert_time_to_json(None) is None
 
     def test_convert_time_from_json(self):
         """ Test of the time conversion from a file """
@@ -113,3 +130,8 @@ class TestDBInterface:
         assert time.hour == 7
         assert time.minute == 35
         assert time.second == 18
+
+    def test_convert_time_from_json_none(self):
+        """ Test of the time conversion from None """
+        time = self.INTERFACE.convert_time_from_json(None)
+        assert time is None
