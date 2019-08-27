@@ -10,7 +10,7 @@ from kivy.clock import ClockEvent
 import flat_kivy.dbinterface as module
 
 class TestDBInterface:
-    """ Test of the data base interface class """
+    """ Test of the database interface class """
 
     @classmethod
     @fixture(autouse=True)
@@ -111,6 +111,16 @@ class TestDBInterface:
         assert self.INTERFACE.data["wrong"]["row"]["label"] == (
             {"value":["a", "b"]}
         )
+
+class TestTimeConversion:
+    """ Test of the time conversion methods """
+
+    @classmethod
+    @fixture(autouse=True)
+    def setup_class(cls, tmpdir):
+        """ Method executed when the class is called """
+        cls.data_dir = tmpdir.mkdir("data")
+        cls.INTERFACE = module.DBInterface(cls.data_dir, "Test")
 
     def test_get_time(self):
         """ Test of the time getter """
