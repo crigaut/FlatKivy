@@ -47,19 +47,21 @@ class TestDBInterface:
 
     def test_get_entry(self):
         """ Test of the database value getter """
-        tmp_data = JsonStore(self.data_dir + "Temp")
-        tmp_data.put("table", row={"label":{"value":[0, 1]}})
-        assert self.INTERFACE.get_entry("table", "row", "label") == (
-            tmp_data["table"]["row"]["label"]["value"]
-        )
+        assert self.INTERFACE.get_entry("table", "row", "label") == [0, 1]
+
+    def test_get_entry_wrong(self):
+        """ Test of the database value getter exception catch """
+        assert self.INTERFACE.get_entry("table", "row", "wrong") is None
 
     def test_get_row(self):
         """ Test of the database row getter """
-        tmp_data = JsonStore(self.data_dir + "Temp")
-        tmp_data.put("table", row={"label":{"value":[0, 1]}})
-        assert self.INTERFACE.get_row("table", "row") == (
-            tmp_data["table"]["row"]
-        )
+        assert self.INTERFACE.get_row("table", "row") == {
+            "label":{"value":[0, 1]}
+            }
+
+    def test_get_row_wrong(self):
+        """ Test of the database row getter exception catch """
+        assert self.INTERFACE.get_row("table", "wrong") is None
 
     def test_get_table(self):
         """ Test of the database table getter """
@@ -67,10 +69,22 @@ class TestDBInterface:
         tmp_data.put("table", row={"label":{"value":[0, 1]}})
         assert self.INTERFACE.get_table("table") == tmp_data["table"]
 
+    def test_get_table_wrong(self):
+        """ Test of the database table getter exception catch """
+        assert self.INTERFACE.get_table("wrong") is None
+
     def test_remove_entry(self):
         """ Test of database entry removal """
         self.INTERFACE.remove_entry("table", "row", "label", 0)
         assert self.INTERFACE.data["table"]["row"]["label"] == {"value":[1]}
+
+    def test_remove_entry_wrong(self, capsys):
+        """ Test of database entry removal exception catch """
+        self.INTERFACE.remove_entry("wrong", "row", "label", 0)
+        capture = capsys.readouterr()
+        assert capture.out == (
+            "no entry:  wrong row label\n0 not found in:  wrong row label\n"
+        )
 
     def test_append_entry(self):
         """ Test of a database entry adding """
@@ -79,10 +93,22 @@ class TestDBInterface:
             {"value":[0, 1, 2]}
         )
 
+    def test_append_entry_wrong(self):
+        """ Test of database entry adding exception catch """
+        self.INTERFACE.append_entry("wrong", "row", "label", 2)
+        assert self.INTERFACE.data["wrong"] == {}
+
     def test_set_entry(self):
         """ Test of the database entry setter """
         self.INTERFACE.set_entry("table", "row", "label", ["a", "b"])
         assert self.INTERFACE.data["table"]["row"]["label"] == (
+            {"value":["a", "b"]}
+        )
+
+    def test_set_entry_wrong(self):
+        """ Test of the database entry setter exception catch """
+        self.INTERFACE.set_entry("wrong", "row", "label", ["a", "b"])
+        assert self.INTERFACE.data["wrong"]["row"]["label"] == (
             {"value":["a", "b"]}
         )
 
