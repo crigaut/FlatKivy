@@ -4,6 +4,9 @@ from pytest import fixture
 
 import flat_kivy.font_definitions as module
 
+# TODO: get_style
+# TODO: get_font_ramp_group
+
 class TestFontStyle:
     """ Test of the font style object """
 
@@ -26,3 +29,22 @@ class TestFontStyle:
     def test_instance(self):
         """ Test of the instance creation """
         assert isinstance(self.FONT_STYLE, module.FontStyle)
+
+
+# TODO: RampGroup
+
+class TestStyleManager:
+    """ Test of the style manager instance """
+
+    @classmethod
+    def setup_class(cls):
+        """ Method executed when the class is called """
+        cls.STYLE_MANAGER = module.StyleManager()
+
+    def test_init(self):
+        """ Test of the stye manager initialisation """
+        assert self.STYLE_MANAGER.styles == {}
+        assert self.STYLE_MANAGER.ramp_groups == {}
+        assert self.STYLE_MANAGER.font_ramps == {}
+
+    # TODO: Class to complete
