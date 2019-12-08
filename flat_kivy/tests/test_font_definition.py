@@ -8,9 +8,6 @@ import flat_kivy.font_definitions as module
 from flat_kivy.flatapp import FlatApp
 from flat_kivy.uix.flatlabel import FlatLabel
 
-# TODO: get_style
-# TODO: get_font_ramp_group
-
 class TestFontStyle:
     """ Test of the font style object """
 
@@ -42,14 +39,19 @@ class TestRampGroup:
     def setup_class(cls):
         """ Method executed when the class is called """
         cls.APP = FlatApp()
-        cls.RAMP_GROUP = module.RampGroup([12, 14, 20, 24, 34, 46], "Test ramp")
+        cls.LABEL = FlatLabel(size=[10, 15], text="test text",
+                              style="test style", halign="center", valign="top",
+                              max_lines=1)
+        cls.RAMP_GROUP = module.RampGroup(["test style"],
+                                          "Test ramp")
+        cls.RAMP_GROUP.tracked_labels.append(cls.LABEL)
 
     def test_init(self):
         """ Test of the ramp group initialisation """
-        assert self.RAMP_GROUP.tracked_labels == []
-        assert self.RAMP_GROUP.font_ramp == [12, 14, 20, 24, 34, 46]
+        assert self.RAMP_GROUP.tracked_labels == [self.LABEL]
+        assert self.RAMP_GROUP.font_ramp == ["test style"]
         assert self.RAMP_GROUP.name == "Test ramp"
-        assert self.RAMP_GROUP.current_style == 46
+        assert self.RAMP_GROUP.current_style == "test style"
         assert self.RAMP_GROUP.max_iterations == 5
         assert isinstance(self.RAMP_GROUP.trigger_fit_check, ClockEvent)
 
@@ -57,9 +59,7 @@ class TestRampGroup:
         """
         Test of the label attribute copy
         """
-        label = FlatLabel(size=[10, 15], text="test text",
-                          halign="center", valign="top", max_lines=1)
-        test_label = self.RAMP_GROUP.copy_label_to_test_label(label,
+        test_label = self.RAMP_GROUP.copy_label_to_test_label(self.LABEL,
                                                               "test style")
         assert test_label.size == [10, 15]
         assert test_label.style == "test style"
@@ -67,6 +67,15 @@ class TestRampGroup:
         assert test_label.halign == "center"
         assert test_label.valign == "top"
         assert test_label.max_lines == 1
+
+    def test_check_fit_for_all_labels(self):
+        self.RAMP_GROUP.check_fit_for_all_labels(0)
+        assert self.RAMP_GROUP.tracked_labels[0].style == "test style"
+
+    # TODO: set_style
+    # TODO: reset_track_adjustments
+    # TODO: calculate_fit
+    # TODO: get_fit
 
 class TestStyleManager:
     """ Test of the style manager class """
