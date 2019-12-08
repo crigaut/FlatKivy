@@ -6,6 +6,7 @@ from kivy.clock import ClockEvent
 
 import flat_kivy.font_definitions as module
 from flat_kivy.flatapp import FlatApp
+from flat_kivy.uix.flatlabel import FlatLabel
 
 # TODO: get_style
 # TODO: get_font_ramp_group
@@ -51,6 +52,21 @@ class TestRampGroup:
         assert self.RAMP_GROUP.current_style == 46
         assert self.RAMP_GROUP.max_iterations == 5
         assert isinstance(self.RAMP_GROUP.trigger_fit_check, ClockEvent)
+
+    def test_copy_label_to_test_label(self):
+        """
+        Test of the label attribute copy
+        """
+        label = FlatLabel(size=[10, 15], text="test text",
+                          halign="center", valign="top", max_lines=1)
+        test_label = self.RAMP_GROUP.copy_label_to_test_label(label,
+                                                              "test style")
+        assert test_label.size == [10, 15]
+        assert test_label.style == "test style"
+        assert test_label.text == "test text"
+        assert test_label.halign == "center"
+        assert test_label.valign == "top"
+        assert test_label.max_lines == 1
 
 class TestStyleManager:
     """ Test of the style manager class """
