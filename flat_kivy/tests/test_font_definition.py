@@ -2,7 +2,10 @@
 
 from pytest import fixture
 
+from kivy.clock import ClockEvent
+
 import flat_kivy.font_definitions as module
+from flat_kivy.flatapp import FlatApp
 
 # TODO: get_style
 # TODO: get_font_ramp_group
@@ -31,10 +34,26 @@ class TestFontStyle:
         assert isinstance(self.FONT_STYLE, module.FontStyle)
 
 
-# TODO: RampGroup
+class TestRampGroup:
+    """ Test of the font ramp group class """
+
+    @classmethod
+    def setup_class(cls):
+        """ Method executed when the class is called """
+        cls.APP = FlatApp()
+        cls.RAMP_GROUP = module.RampGroup([12, 14, 20, 24, 34, 46], "Test ramp")
+
+    def test_init(self):
+        """ Test of the ramp group initialisation """
+        assert self.RAMP_GROUP.tracked_labels == []
+        assert self.RAMP_GROUP.font_ramp == [12, 14, 20, 24, 34, 46]
+        assert self.RAMP_GROUP.name == "Test ramp"
+        assert self.RAMP_GROUP.current_style == 46
+        assert self.RAMP_GROUP.max_iterations == 5
+        assert isinstance(self.RAMP_GROUP.trigger_fit_check, ClockEvent)
 
 class TestStyleManager:
-    """ Test of the style manager instance """
+    """ Test of the style manager class """
 
     @classmethod
     def setup_class(cls):
