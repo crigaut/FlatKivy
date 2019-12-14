@@ -80,11 +80,17 @@ class TestRampGroup:
         self.RAMP_GROUP.set_style("modified style")
         assert self.RAMP_GROUP.tracked_labels[0].style == "modified style"
 
-    # TODO: reset_track_adjustments
+    def test_reset_track_adjustments(self):
+        """ Test for resetting tracking parameters """
+        self.RAMP_GROUP.tracked_labels.append(FlatLabel())
+        self.RAMP_GROUP.reset_track_adjustments(0)
+        assert len(self.RAMP_GROUP.tracked_labels) == 2
+        self.RAMP_GROUP.tracked_labels.pop()
+
     # TODO: calculate_fit
     # TODO: get_fit
     # TODO: add_label
-    # TODO: remove
+    # TODO: remove_widget
 
 class TestStyleManager:
     """ Test of the style manager class """
