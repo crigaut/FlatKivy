@@ -46,6 +46,10 @@ class TestRampGroup:
                                           "Test ramp")
         cls.RAMP_GROUP.tracked_labels.append(cls.LABEL)
 
+    def teardown_method(self):
+        """ Method executed after each test """
+        self.RAMP_GROUP.tracked_labels[0].style = "test style"
+
     def test_init(self):
         """ Test of the ramp group initialisation """
         assert self.RAMP_GROUP.tracked_labels == [self.LABEL]
@@ -56,9 +60,7 @@ class TestRampGroup:
         assert isinstance(self.RAMP_GROUP.trigger_fit_check, ClockEvent)
 
     def test_copy_label_to_test_label(self):
-        """
-        Test of the label attribute copy
-        """
+        """ Test of the label attribute copy """
         test_label = self.RAMP_GROUP.copy_label_to_test_label(self.LABEL,
                                                               "test style")
         assert test_label.size == [10, 15]
@@ -69,13 +71,20 @@ class TestRampGroup:
         assert test_label.max_lines == 1
 
     def test_check_fit_for_all_labels(self):
+        """ Test for text to fit into the labels """
         self.RAMP_GROUP.check_fit_for_all_labels(0)
         assert self.RAMP_GROUP.tracked_labels[0].style == "test style"
 
-    # TODO: set_style
+    def test_set_style(self):
+        """ Test of style setter """
+        self.RAMP_GROUP.set_style("modified style")
+        assert self.RAMP_GROUP.tracked_labels[0].style == "modified style"
+
     # TODO: reset_track_adjustments
     # TODO: calculate_fit
     # TODO: get_fit
+    # TODO: add_label
+    # TODO: remove
 
 class TestStyleManager:
     """ Test of the style manager class """
