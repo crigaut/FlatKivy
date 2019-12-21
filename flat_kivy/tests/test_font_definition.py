@@ -3,10 +3,14 @@
 from pytest import fixture
 
 from kivy.clock import ClockEvent
+from kivy.uix.gridlayout import GridLayout
 
 import flat_kivy.font_definitions as module
 from flat_kivy.flatapp import FlatApp
 from flat_kivy.uix.flatlabel import FlatLabel
+
+# TODO: get_style
+# TODO: get_font_ramp_group
 
 class TestFontStyle:
     """ Test of the font style object """
@@ -38,13 +42,14 @@ class TestRampGroup:
     @classmethod
     def setup_class(cls):
         """ Method executed when the class is called """
-        cls.APP = FlatApp()
+        cls.APP = MockApp()
         cls.LABEL = FlatLabel(size=[10, 15], text="test text",
                               style="test style", halign="center", valign="top",
                               max_lines=1)
         cls.RAMP_GROUP = module.RampGroup(["test style"],
                                           "Test ramp")
         cls.RAMP_GROUP.tracked_labels.append(cls.LABEL)
+        cls.APP.run()
 
     def teardown_method(self):
         """ Method executed after each test """
@@ -87,7 +92,10 @@ class TestRampGroup:
         assert len(self.RAMP_GROUP.tracked_labels) == 2
         self.RAMP_GROUP.tracked_labels.pop()
 
-    # TODO: calculate_fit
+    def test_calculate_fit(self):
+        """ Test for the resize calculation """
+        assert self.RAMP_GROUP.calculate_fit(self.APP.root.children[0]) == "fits"
+
     # TODO: get_fit
     # TODO: add_label
     # TODO: remove_widget
@@ -111,3 +119,13 @@ class TestStyleManager:
         font_file = tmpdir.mkdir("fonts").join("test_add")
         self.STYLE_MANAGER.add_style(font_file, "Test add", 6, 10, 1)
         assert "Test add" in self.STYLE_MANAGER.styles
+
+class MockApp(FlatApp):
+
+    def build(self):
+        layout = GridLayout()
+        layout.add_widget(FlatLabel(text="test text"))
+        return layout
+
+    def on_start(self):
+        self.stop()
