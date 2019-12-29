@@ -94,9 +94,13 @@ class TestRampGroup:
 
     def test_calculate_fit(self):
         """ Test for the resize calculation """
-        assert self.RAMP_GROUP.calculate_fit(self.APP.root.children[0]) == "fits"
+        assert self.RAMP_GROUP.calculate_fit(self.APP.root.children[0]) == (
+            "fits")
 
-    # TODO: get_fit
+    def test_get_fit(self):
+        """ Test for text edjustment getter """
+        assert self.RAMP_GROUP.get_fit(self.LABEL, "100") == 'toobig'
+
     # TODO: add_label
     # TODO: remove_widget
 
@@ -120,7 +124,11 @@ class TestStyleManager:
         self.STYLE_MANAGER.add_style(font_file, "Test add", 6, 10, 1)
         assert "Test add" in self.STYLE_MANAGER.styles
 
+    # TODO: add_font_ramp
+    # TODO: create_ramp_group
+
 class MockApp(FlatApp):
+    """ App class for render testing """
 
     def build(self):
         layout = GridLayout()
