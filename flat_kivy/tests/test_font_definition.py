@@ -9,7 +9,20 @@ import flat_kivy.font_definitions as module
 from flat_kivy.flatapp import FlatApp
 from flat_kivy.uix.flatlabel import FlatLabel
 
-# TODO: get_style
+class TestGetStyle:
+    """ Test for the style getter """
+
+    @staticmethod
+    def test_get_style():
+        """ Test for style manager style getter """
+        module.style_manager.styles["Medium"] = 12
+        assert module.get_style("Medium") == 12
+
+    @staticmethod
+    def test_set_none():
+        """ Test for getter in case of None style """
+        assert module.get_style(None) is None
+
 # TODO: get_font_ramp_group
 
 class TestFontStyle:
@@ -113,6 +126,7 @@ class TestRampGroup:
         self.RAMP_GROUP.remove_widget(self.LABEL)
         assert not self.RAMP_GROUP.tracked_labels
 
+
 class TestStyleManager:
     """ Test of the style manager class """
 
@@ -135,6 +149,7 @@ class TestStyleManager:
 
     # TODO: add_font_ramp
     # TODO: create_ramp_group
+
 
 class MockApp(FlatApp):
     """ App class for render testing """
