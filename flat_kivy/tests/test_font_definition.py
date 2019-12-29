@@ -54,6 +54,7 @@ class TestRampGroup:
     def teardown_method(self):
         """ Method executed after each test """
         self.RAMP_GROUP.tracked_labels[0].style = "test style"
+        self.RAMP_GROUP.tracked_labels = [self.LABEL]
 
     def test_init(self):
         """ Test of the ramp group initialisation """
@@ -101,7 +102,12 @@ class TestRampGroup:
         """ Test for text edjustment getter """
         assert self.RAMP_GROUP.get_fit(self.LABEL, "100") == 'toobig'
 
-    # TODO: add_label
+    def test_add_label(self):
+        """ Test for adding label to tracking """
+        test_label = FlatLabel()
+        self.RAMP_GROUP.add_label(test_label)
+        assert len(self.RAMP_GROUP.tracked_labels) == 2
+
     # TODO: remove_widget
 
 class TestStyleManager:
