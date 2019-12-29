@@ -53,8 +53,8 @@ class TestRampGroup:
 
     def teardown_method(self):
         """ Method executed after each test """
-        self.RAMP_GROUP.tracked_labels[0].style = "test style"
         self.RAMP_GROUP.tracked_labels = [self.LABEL]
+        self.RAMP_GROUP.tracked_labels[0].style = "test style"
 
     def test_init(self):
         """ Test of the ramp group initialisation """
@@ -108,7 +108,10 @@ class TestRampGroup:
         self.RAMP_GROUP.add_label(test_label)
         assert len(self.RAMP_GROUP.tracked_labels) == 2
 
-    # TODO: remove_widget
+    def test_remove_widget(self):
+        """ Test for widget removal from the tracked labels """
+        self.RAMP_GROUP.remove_widget(self.LABEL)
+        assert not self.RAMP_GROUP.tracked_labels
 
 class TestStyleManager:
     """ Test of the style manager class """
